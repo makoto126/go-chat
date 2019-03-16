@@ -37,28 +37,28 @@ func (c *Client) Logout() {
 	c.conn.Close()
 }
 
-func (c *Client) NewMessage(p []byte) *Message {
+func (c *Client) NewMessage(s string) *Message {
 	return &Message{
-		From:    c.name,
-		Payload: p,
+		From: c.name,
+		Text: s,
 	}
 }
 
 func (c *Client) loginMessage() *Message {
-	return c.NewMessage([]byte("joined!\n"))
+	return c.NewMessage("joined!\n")
 }
 
 func (c *Client) logoutMessage() *Message {
-	return c.NewMessage([]byte("leaved!\n"))
+	return c.NewMessage("leaved!\n")
 }
 
 type Message struct {
-	From    string `json:"from,omitempty"`
-	Payload []byte `json:"payload,omitempty"`
+	From string `json:"from,omitempty"`
+	Text string `json:"text,omitempty"`
 }
 
 func (m *Message) ToString() []byte {
-	return []byte(m.From + ": " + string(m.Payload))
+	return []byte(m.From + ": " + m.Text)
 }
 
 func (m *Message) ToJson() []byte {

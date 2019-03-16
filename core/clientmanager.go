@@ -70,7 +70,7 @@ func (cm *ClientManager) receiveFrom(client *Client, exit chan struct{}) {
 			break
 		}
 		if n > 0 {
-			cm.broadcast <- client.NewMessage(buff[:n])
+			cm.broadcast <- client.NewMessage(string(buff[:n]))
 		}
 	}
 	exit <- struct{}{}
