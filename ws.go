@@ -21,7 +21,7 @@ func WSServer() {
 		cm.Serve(client)
 	}
 
-	http.Handle("/ws", websocket.Handler(chat))
+	http.Handle("/ws", chat)
 	err := http.ListenAndServe(":12345", nil)
 	if err != nil {
 		log.Panic(err)

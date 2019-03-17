@@ -50,11 +50,9 @@ func (cm *ClientManager) Serve(client *Client) {
 	exit := make(chan struct{})
 	defer close(exit)
 
-	select {
-	case <-client.ready:
-		go cm.receiveFrom(client, exit)
-		go cm.sendTo(client, exit)
-	}
+	<-client.ready
+	go cm.receiveFrom(client, exit)
+	go cm.sendTo(client, exit)
 	close(client.ready)
 
 	<-exit
